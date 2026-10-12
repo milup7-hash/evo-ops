@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Evo OPS — Dual Plate Check Valve Estimation & Operations Suite</title>
+  <meta name="description" content="Industrial enterprise daily operations and multi-component DPCV quotation platform for Evo Valves." />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+  <!-- Top Enterprise Header -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand-section">
+        <img src="assets/images/evo_valves_logo.jpg" alt="Evo Valves official precision manufacturing emblem" class="brand-logo" id="appHeaderLogo" />
+        <div class="brand-text">
+          <h1>EVO VALVES <span class="brand-badge">Daily OPS</span></h1>
+          <div class="brand-subtitle">Precision Dual Plate Check Valves (DPCV) Manufacturing</div>
+        </div>
+      </div>
+
+      <div class="header-status-strip">
+        <div class="status-item">
+          <span class="live-indicator" aria-hidden="true"></span>
+          <span>Engine Active (API 594 / 598)</span>
+        </div>
+        <div class="status-item font-mono text-cyan" id="liveClock">--:--:-- IST</div>
+        <div class="status-item">
+          <span class="badge badge-outline">Role: Sales & Estimation Ops</span>
+        </div>
+        <button type="button" class="theme-toggle-btn" id="btnThemeToggle" aria-label="Toggle Dark and Light Engineering Theme" title="Switch Theme">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Modular Navigation Switcher -->
+  <nav class="app-nav-bar" id="mainNavBar" aria-label="Main Navigation">
+    <div class="nav-container">
+      <button type="button" class="nav-tab-btn active" data-view="estimator" id="tabNavEstimator">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>
+        <span>Dynamic Estimator</span>
+      </button>
+
+      <button type="button" class="nav-tab-btn" data-view="quotations" id="tabNavQuotations">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line></svg>
+        <span>Quotation Studio (<span id="quoteItemsCount">0</span>)</span>
+      </button>
+
+      <button type="button" class="nav-tab-btn" data-view="masterdata" id="tabNavMasterData">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+        <span>Master Rates & Weights Hub</span>
+      </button>
+
+      <button type="button" class="nav-tab-btn" data-view="shopfloor" id="tabNavShopfloor">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M2 20h20"></path><path d="M5 20V8l5 4V4l5 4v12"></path><line x1="19" y1="14" x2="19" y2="20"></line></svg>
+        <span>Shopfloor & Testing Ops</span>
+      </button>
+
+      <button type="button" class="nav-tab-btn" data-view="technical" id="tabNavTechnical">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24"></path><path d="m14.83 9.17 4.24-4.24"></path><path d="m14.83 14.83 4.24 4.24"></path><path d="m9.17 14.83-4.24 4.24"></path></svg>
+        <span>3D Technical Inspector</span>
+      </button>
+
+      <button type="button" class="nav-tab-btn" data-view="archive" id="tabNavArchive">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 8v13H3V8"></path><path d="M1 3h22v5H1z"></path><path d="M10 12h4"></path></svg>
+        <span>Saved Quotes</span>
+      </button>
+
+      <button type="button" class="nav-tab-btn" data-view="spec" id="tabNavSpec">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+        <span>SRS & Architecture Blueprint</span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Main Content View Area -->
+  <main class="main-content">
+
+    <!-- ======================================================================
+         VIEW 1: DYNAMIC ESTIMATOR (CORE BOTTLENECK SOLVER)
+         ====================================================================== -->
+    <section class="view-panel" id="view-estimator">
+      <!-- Top Live Metric KPIs -->
+      <div class="kpi-grid">
+        <div class="metric-card">
+          <div class="metric-label">Configured Valve Model</div>
+          <div class="metric-value text-cyan" id="metricValveDesc">6" 150# Wafer</div>
+          <div class="metric-sub">API 594 Short Pattern</div>
+        </div>
+
+        <div class="metric-card accent-blue">
+          <div class="metric-label">Net Unit Price (Ex-Works)</div>
+          <div class="metric-value" id="metricUnitPrice">₹0</div>
+          <div class="metric-sub">Unit Weight: <span id="metricTotalWeight">0 kg</span></div>
+        </div>
+
+        <div class="metric-card accent-gold">
+          <div class="metric-label">Total Lot Selling Price</div>
+          <div class="metric-value text-gold" id="metricTotalSelling">₹0</div>
+          <div class="metric-sub">Total Batch Wt: <span id="metricBatchWeight">0 kg</span></div>
+        </div>
+
+        <div class="metric-card accent-success">
+          <div class="metric-label">Factory Cost vs Profit Margin</div>
+          <div class="metric-value text-success" id="metricProfitMargin">₹0 (22%)</div>
+          <div class="metric-sub">Direct Factory Cost: <span id="metricFactoryCost">₹0</span></div>
+        </div>
+      </div>
+
+      <!-- Quick Preset Trims Bar -->
+      <div class="presets-bar">
+        <span class="presets-label">Quick Metallurgy Presets:</span>
+        <div id="presetsContainer" class="d-flex flex-wrap gap-2"></div>
+      </div>
+
+      <!-- Valve Configuration Layout Grid -->
+      <div class="row g-4" style="display: grid; grid-template-columns: 360px 1fr; gap: 1.5rem;">
+        
+        <!-- Left Column: Parameter Selection -->
+        <div class="config-sidebar card">
+          <div class="card-header">
+            <h3 class="card-title text-white">Valve Configuration Parameters</h3>
+          </div>
+          <div class="card-body">
+            <!-- Size & Rating -->
+            <div class="mb-3">
+              <label for="cfgSize" class="form-label">Nominal Valve Size (NPS / DN)</label>
+              <select id="cfgSize" class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+              <label for="cfgClass" class="form-label">Pressure Class (ASME B16.34)</label>
+              <select id="cfgClass" class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+              <label for="cfgEndConnection" class="form-label">End Connection Design</label>
+              <select id="cfgEndConnection" class="form-select"></select>
+            </div>
+
+            <hr style="border-color: var(--border-subtle); margin: 1.25rem 0;" />
+
+            <!-- Metallurgy Selection -->
+            <h4 class="text-cyan small fw-bold mb-3 text-uppercase">Component Metallurgy Selection</h4>
+
+            <div class="mb-3">
+              <label for="matBody" class="form-label">1. Valve Body Casting (ASTM)</label>
+              <select id="matBody" class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+              <label for="matFlap" class="form-label">2. Dual Flaps / Discs (Plates)</label>
+              <select id="matFlap" class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+              <label for="matHingePin" class="form-label">3. Central Hinge Pin</label>
+              <select id="matHingePin" class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+              <label for="matStopPin" class="form-label">4. Stop Pin</label>
+              <select id="matStopPin" class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+              <label for="matSpring" class="form-label">5. Torsion Spring</label>
+              <select id="matSpring" class="form-select"></select>
+            </div>
+
+            <div class="mb-3">
+              <label for="matSeat" class="form-label">6. Seating & O-Rings</label>
+              <select id="matSeat" class="form-select"></select>
+            </div>
+
+            <hr style="border-color: var(--border-subtle); margin: 1.25rem 0;" />
+
+            <!-- Commercial Multipliers -->
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;" class="mb-3">
+              <div>
+                <label for="cfgQuantity" class="form-label">Quantity (Nos)</label>
+                <input type="number" id="cfgQuantity" class="form-control font-mono" min="1" value="10" />
+              </div>
+              <div>
+                <label for="cfgMargin" class="form-label">Margin (%)</label>
+                <input type="number" id="cfgMargin" class="form-control font-mono" min="0" max="60" value="22" />
+              </div>
+            </div>
+
+            <div class="mb-3">
+              <label for="cfgDiscount" class="form-label">Commercial Discount (%)</label>
+              <input type="number" id="cfgDiscount" class="form-control font-mono" min="0" max="30" value="0" />
+            </div>
+
+            <button type="button" class="btn btn-primary w-100 mt-2" id="btnAddToQuote">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Add to Active Quotation</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right Column: Live Dynamic BOM Breakdown & Cost Inspector -->
+        <div class="cost-breakdown-area">
+          
+          <!-- Visual Weight Distribution Card -->
+          <div class="card mb-3">
+            <div class="card-body py-3">
+              <div class="d-flex justify-content-between align-items-center mb-1">
+                <span class="small fw-bold text-secondary">Component Weight Share Analysis:</span>
+                <span class="small font-mono text-cyan" id="splitCostSummary">Body + Flaps = ~85% of total mass</span>
+              </div>
+              <div class="progress-stacked" id="weightBreakdownBar"></div>
+              <div class="d-flex justify-content-between small text-muted mt-2">
+                <span>Direct Material: <strong class="text-white" id="splitMaterial">₹0</strong></span>
+                <span>Direct Machining: <strong class="text-white" id="splitMachining">₹0</strong></span>
+                <span>Testing & Overheads: <strong class="text-white" id="splitOverheads">₹0</strong></span>
+                <span>API 598 Shell: <strong class="text-cyan font-mono" id="testShellPressure">--</strong></span>
+                <span>API 598 Seat: <strong class="text-cyan font-mono" id="testSeatPressure">--</strong></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Live Dynamic BOM Table Card -->
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <div>
+                <h3 class="card-title text-white">Dynamic Bill of Materials (BOM) & Costing Matrix</h3>
+                <div class="text-muted small">Auto-calculated weights & live rate integration (Zero manual entry)</div>
+              </div>
+              <div class="d-flex gap-2">
+                <button type="button" class="btn btn-sm btn-outline-cyan" id="btnViewInQuote">
+                  <span>Open Quotation Studio</span>
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                </button>
+              </div>
+            </div>
+            <div class="card-body p-0">
+              <div class="table-responsive">
+                <table class="table" id="bomTable">
+                  <thead>
+                    <tr>
+                      <th style="width: 5%;" class="text-center">#</th>
+                      <th style="width: 25%;">Component</th>
+                      <th style="width: 10%;">Grade</th>
+                      <th style="width: 10%;" class="text-end">Weight (kg)</th>
+                      <th style="width: 12%;" class="text-end">Rate / Unit</th>
+                      <th style="width: 12%;" class="text-end">Raw Cost</th>
+                      <th style="width: 12%;" class="text-end">Machining</th>
+                      <th style="width: 14%;" class="text-end">Total Cost</th>
+                      <th style="width: 6%;" class="text-end">% Share</th>
+                    </tr>
+                  </thead>
+                  <tbody id="bomTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VIEW 2: QUOTATION STUDIO & A4 PRINT EXPORT
+         ====================================================================== -->
+    <section class="view-panel d-none" id="view-quotations">
+      <div class="card mb-4 no-print">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div>
+            <h3 class="card-title text-white">Enterprise Quotation Studio</h3>
+            <div class="text-muted small">Multi-item quotation management with instant A4 corporate print & PDF generation</div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-primary" id="btnPrintQuote">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="6 9 6 2 18 2 18 9"></polyline><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path><rect x="6" y="14" width="12" height="8"></rect></svg>
+              <span>Print / Export PDF (A4)</span>
+            </button>
+            <button type="button" class="btn btn-success" id="btnSaveQuote">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path><polyline points="17 21 17 13 7 13 7 21"></polyline><polyline points="7 3 7 8 15 8"></polyline></svg>
+              <span>Save & Archive</span>
+            </button>
+            <button type="button" class="btn btn-outline-secondary" id="btnNewQuote">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>New Quote</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <!-- Customer & Inquiry Header Form -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;" class="mb-4">
+            <div>
+              <label for="qCustomerName" class="form-label">Customer / Client Name</label>
+              <input type="text" id="qCustomerName" class="form-control" />
+            </div>
+
+            <div>
+              <label for="qInquiryRef" class="form-label">Client Inquiry Reference</label>
+              <input type="text" id="qInquiryRef" class="form-control font-mono" />
+            </div>
+
+            <div>
+              <label for="qProjectName" class="form-label">Project / Plant Name</label>
+              <input type="text" id="qProjectName" class="form-control" />
+            </div>
+
+            <div>
+              <label for="qQuoteNo" class="form-label">Quotation Number</label>
+              <input type="text" id="qQuoteNo" class="form-control font-mono fw-bold text-cyan" />
+            </div>
+
+            <div>
+              <label for="qRevision" class="form-label">Revision No</label>
+              <input type="text" id="qRevision" class="form-control font-mono" />
+            </div>
+
+            <div>
+              <label for="qDate" class="form-label">Date of Offer</label>
+              <input type="date" id="qDate" class="form-control font-mono" />
+            </div>
+          </div>
+
+          <!-- Quotation Items Table -->
+          <div class="table-responsive mb-4">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 4%;" class="text-center">#</th>
+                  <th style="width: 36%;">Item Specification</th>
+                  <th style="width: 10%;">Metallurgy</th>
+                  <th style="width: 8%;" class="text-center">Qty</th>
+                  <th style="width: 10%;" class="text-end">Unit Wt (kg)</th>
+                  <th style="width: 10%;" class="text-end">Total Wt (kg)</th>
+                  <th style="width: 10%;" class="text-end">Unit Price</th>
+                  <th style="width: 12%;" class="text-end">Total Amount</th>
+                  <th style="width: 5%;" class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="quoteItemsTableBody"></tbody>
+            </table>
+          </div>
+
+          <!-- Commercials Summary Footer -->
+          <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+            <div>
+              <h4 class="text-cyan small fw-bold mb-3 text-uppercase">Commercial Terms & Technical Conditions</h4>
+              <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                <div>
+                  <label for="qDeliveryWeeks" class="form-label">Delivery Timeline</label>
+                  <input type="text" id="qDeliveryWeeks" class="form-control" />
+                </div>
+                <div>
+                  <label for="qPriceBasis" class="form-label">Price Basis</label>
+                  <input type="text" id="qPriceBasis" class="form-control" />
+                </div>
+                <div>
+                  <label for="qPaymentTerms" class="form-label">Payment Terms</label>
+                  <input type="text" id="qPaymentTerms" class="form-control" />
+                </div>
+                <div>
+                  <label for="qWarranty" class="form-label">Warranty / Guarantee</label>
+                  <input type="text" id="qWarranty" class="form-control" />
+                </div>
+              </div>
+            </div>
+
+            <!-- Price Breakdown Box -->
+            <div class="p-3 rounded border border-subtle" style="background: rgba(14, 22, 38, 0.6);">
+              <div class="d-flex justify-content-between mb-2">
+                <span class="text-muted">Estimated Lot Weight:</span>
+                <span class="font-mono fw-bold" id="qTotalWeightDisplay">0 kg</span>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span class="text-muted">Subtotal (Ex-Works):</span>
+                <span class="font-mono fw-bold" id="qSubtotalDisplay">₹0</span>
+              </div>
+              <div class="d-flex justify-content-between mb-2">
+                <span class="text-muted">GST @ 18%:</span>
+                <span class="font-mono" id="qGstDisplay">₹0</span>
+              </div>
+              <hr style="border-color: var(--border-subtle); margin: 0.75rem 0;" />
+              <div class="d-flex justify-content-between align-items-center">
+                <span class="fw-bold text-white">Grand Total (INR):</span>
+                <span class="font-mono fw-bold text-gold" style="font-size: 1.35rem;" id="qGrandTotalDisplay">₹0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VIEW 3: MASTER RATES & WEIGHTS HUB
+         ====================================================================== -->
+    <section class="view-panel d-none" id="view-masterdata">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div>
+            <h3 class="card-title text-white">Central Master Rates & Weight Matrix</h3>
+            <div class="text-muted small">Update raw material rates (₹/kg) and base weights once — automatically recalculates all valve quotes</div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-sm btn-outline-cyan" id="btnExportMasterJson">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Export JSON</span>
+            </button>
+            <label class="btn btn-sm btn-outline-secondary mb-0" style="cursor: pointer;">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+              <span>Import JSON</span>
+              <input type="file" id="inputImportMasterJson" accept=".json" style="display: none;" />
+            </label>
+            <button type="button" class="btn btn-sm btn-outline-secondary" id="btnResetMasterData">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+              <span>Reset Defaults</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <!-- 1. Casting Rates (Body & Flap) -->
+          <h4 class="text-cyan small fw-bold mb-2 text-uppercase">1. Casting Metallurgy Rates (Body & Flap Discs)</h4>
+          <div class="table-responsive mb-4">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 10%;">Code</th>
+                  <th style="width: 35%;">Material Description</th>
+                  <th style="width: 15%;">Category</th>
+                  <th style="width: 12%;" class="text-center">Density Ratio</th>
+                  <th style="width: 13%;" class="text-center">Machinability</th>
+                  <th style="width: 15%;" class="text-end">Current Rate (₹/kg)</th>
+                </tr>
+              </thead>
+              <tbody id="castingRatesTableBody"></tbody>
+            </table>
+          </div>
+
+          <!-- 2. Pin Materials & Springs -->
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;" class="mb-4">
+            <div>
+              <h4 class="text-cyan small fw-bold mb-2 text-uppercase">2. Pin Materials (Hinge & Stop Pin Bar Stock)</h4>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Code</th>
+                      <th>Pin Metallurgy</th>
+                      <th class="text-center">Machining</th>
+                      <th class="text-end">Rate (₹/kg)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pinRatesTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+
+            <div>
+              <h4 class="text-cyan small fw-bold mb-2 text-uppercase">3. Torsion Springs & Sealing Elements</h4>
+              <div class="table-responsive mb-3">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Code</th>
+                      <th>Spring Material</th>
+                      <th class="text-end">Base Price (₹/pc)</th>
+                    </tr>
+                  </thead>
+                  <tbody id="springRatesTableBody"></tbody>
+                </table>
+              </div>
+
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Code</th>
+                      <th>Seat Material</th>
+                      <th>Type</th>
+                      <th class="text-end">Cost</th>
+                    </tr>
+                  </thead>
+                  <tbody id="seatRatesTableBody"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. Base Weight Matrix (Size 2" to 24") -->
+          <h4 class="text-cyan small fw-bold mb-2 text-uppercase">4. Base Weights Matrix (Class 150# Wafer Pattern in WCB Carbon Steel kg)</h4>
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th style="width: 12%;">Size (NPS)</th>
+                  <th style="width: 15%;" class="text-end">Body Wt (kg)</th>
+                  <th style="width: 15%;" class="text-end">Flaps Wt (kg)</th>
+                  <th style="width: 14%;" class="text-end">H-Pin (kg)</th>
+                  <th style="width: 14%;" class="text-end">S-Pin (kg)</th>
+                  <th style="width: 14%;" class="text-end">Spring (kg)</th>
+                  <th style="width: 16%;" class="text-end">Base Machining (₹)</th>
+                </tr>
+              </thead>
+              <tbody id="baseWeightTableBody"></tbody>
+            </table>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VIEW 4: SHOPFLOOR & API 598 TESTING TRACKER
+         ====================================================================== -->
+    <section class="view-panel d-none" id="view-shopfloor">
+      <div class="card mb-4">
+        <div class="card-header d-flex justify-content-between align-items-center">
+          <div>
+            <h3 class="card-title text-white">Daily Shopfloor Assembly & Hydro QC Tracking</h3>
+            <div class="text-muted small">Assembly progression, heat number traceability, and API 598 hydrostatic test signoffs</div>
+          </div>
+          <div class="d-flex gap-2">
+            <button type="button" class="btn btn-primary btn-sm" id="btnAddWorkOrder">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Schedule Work Order</span>
+            </button>
+          </div>
+        </div>
+
+        <div class="card-body">
+          <div id="shopfloorOrdersList"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VIEW 5: 3D TECHNICAL INSPECTOR & STANDARDS
+         ====================================================================== -->
+    <section class="view-panel d-none" id="view-technical">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title text-white">DPCV 3D Cutaway Schematic & Component Engineering</h3>
+          <div class="text-muted small">Interactive component inspection and compliance standards (API 594, API 598, ASME B16.34)</div>
+        </div>
+
+        <div class="card-body">
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <!-- Left: High-Res 3D Cutaway Graphic -->
+            <div>
+              <div class="cutaway-viewport">
+                <img src="assets/images/dpcv_valve_diagram.jpg" alt="Dual Plate Check Valve 3D Engineering Cutaway with Component Callouts" class="cutaway-img" id="imgCutawayDiagram" />
+              </div>
+
+              <div class="hotspot-bar">
+                <span class="small fw-bold text-secondary w-100 mb-1">Click to Inspect Component Engineering:</span>
+                <button type="button" class="hotspot-btn active" data-comp-key="body">1. Cast Body</button>
+                <button type="button" class="hotspot-btn" data-comp-key="flap">2. Dual Flaps / Discs</button>
+                <button type="button" class="hotspot-btn" data-comp-key="hingePin">3. Hinge Pin</button>
+                <button type="button" class="hotspot-btn" data-comp-key="stopPin">4. Stop Pin</button>
+                <button type="button" class="hotspot-btn" data-comp-key="spring">5. Torsion Spring</button>
+                <button type="button" class="hotspot-btn" data-comp-key="seat">6. Valve Seat</button>
+              </div>
+            </div>
+
+            <!-- Right: Dynamic Component Description & Standards Matrix -->
+            <div>
+              <div id="componentDetailBox" class="mb-4">
+                <div class="p-3 bg-card-highlight rounded border border-cyan">
+                  <div class="d-flex justify-content-between align-items-center mb-2">
+                    <h5 class="text-cyan mb-0">1. Valve Cast Body (વાલ્વ બોડી)</h5>
+                    <span class="badge badge-primary font-mono">API 594 / ASME B16.34</span>
+                  </div>
+                  <p class="small text-white mb-2"><strong>Specification:</strong> Heavy-duty cylindrical casting with integral central rib and hinge/stop pin carrier bosses. Available in Wafer, Lugged, or Flanged ends in ASTM A216 WCB, CF8, CF8M, 4A Duplex, and 5A Super Duplex.</p>
+                  <p class="small text-muted mb-0"><strong>Engineering Function:</strong> Pressure containment vessel designed to withstand line surges, water hammer, and external pipe bending moments.</p>
+                </div>
+              </div>
+
+              <h4 class="text-cyan small fw-bold mb-2 text-uppercase">Manufacturing & Inspection Standards Compliance</h4>
+              <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Standard Area</th>
+                      <th>Governing Standard</th>
+                      <th>Evo Valves Protocol</th>
+                    </tr>
+                  </thead>
+                  <tbody id="standardsComplianceTable"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VIEW 6: SAVED QUOTES & REVISION CONTROL
+         ====================================================================== -->
+    <section class="view-panel d-none" id="view-archive">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title text-white">Quotation Archive & Revision History</h3>
+          <div class="text-muted small">Access past quotations, load revisions, duplicate, or print client copies</div>
+        </div>
+        <div class="card-body p-0">
+          <div class="table-responsive">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Quote No</th>
+                  <th>Rev</th>
+                  <th>Customer & Project</th>
+                  <th>Date</th>
+                  <th class="text-center">Total Qty</th>
+                  <th class="text-end">Commercial Value</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody id="archiveQuotesTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================================
+         VIEW 7: SRS & ARCHITECTURE BLUEPRINT
+         ====================================================================== -->
+    <section class="view-panel d-none" id="view-spec">
+      <div class="card mb-4">
+        <div class="card-header">
+          <h3 class="card-title text-white">Software Requirements Specification (SRS) & Architecture Blueprint</h3>
+          <div class="text-muted small">Developer-Ready Requirement Format & Engineering Architecture</div>
+        </div>
+        <div class="card-body">
+          <div class="p-3 mb-4 rounded border border-warning" style="background: rgba(245, 158, 11, 0.08);">
+            <h5 class="text-warning mb-2">📌 વ્યવસાયિક સમસ્યા અને ઉદ્દેશ્ય (Problem Statement & Scope):</h5>
+            <p class="small text-white mb-2">
+              <strong>"એક એક Component ના ભાવ Quotation માં feed કરવા માટે ખૂબ સમય જઈ રહ્યો છે."</strong><br/>
+              અમારી કંપની <strong>Evo Valves</strong> ડ્યુઅલ પ્લેટ ચેક વાલ્વ (DPCV) નું ઉત્પાદન કરે છે. દરેક વાલ્વમાં Body, Flap (Disc), Hinge Pin, Stop Pin અને Spring જેવા મલ્ટીપલ કમ્પોનન્ટ્સ હોય છે અને દરેક કમ્પોનન્ટ વિવિધ મટીરીયલ ગ્રેડ્સ (WCB, CF8, CF8M, 4A, 5A) માં બને છે.
+            </p>
+            <p class="small text-muted mb-0">
+              <strong>ઉકેલ:</strong> Evo OPS સોફ્ટવેર તમામ કમ્પોનન્ટ્સના વજન અને દર આપમેળે ડાયનેમિકલી ગણે છે, જેથી ક્વોટેશન બનાવવાનો સમય 90% ઘટી જાય છે.
+            </p>
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+              <h5 class="text-cyan mb-2">System Architecture Highlights</h5>
+              <ul class="small text-secondary ps-3 mb-3">
+                <li class="mb-1"><strong>Client-Side Reactive SPA:</strong> Zero-dependency execution, loads instantly in any browser.</li>
+                <li class="mb-1"><strong>Mathematical BOM Engine:</strong> Accurate weight derivation by size (2"-24"), class (150#-1500#), and metallurgy density.</li>
+                <li class="mb-1"><strong>Single Source of Truth:</strong> Central Master Rates Hub with instant propagation across all quotes.</li>
+                <li class="mb-1"><strong>A4 Corporate Print Engine:</strong> CSS <code>@media print</code> formatted for high-definition quotation letters.</li>
+              </ul>
+            </div>
+
+            <div>
+              <h5 class="text-cyan mb-2">Full Specifications File</h5>
+              <p class="small text-muted">
+                The comprehensive Enterprise Architecture document is available in markdown format at:
+                <br/><code class="font-mono text-cyan">docs/EVO_OPS_ARCHITECTURE.md</code>
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Printable A4 Corporate Quotation Document (Populated dynamically) -->
+  <div id="printableQuotationDoc"></div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toastContainer" aria-live="polite"></div>
+
+  <!-- Core JavaScript Libraries & Modules -->
+  <script src="js/data.js"></script>
+  <script src="js/store.js"></script>
+  <script src="js/calculator.js"></script>
+  <script src="js/modules/estimator.js"></script>
+  <script src="js/modules/quotation.js"></script>
+  <script src="js/modules/masterdata.js"></script>
+  <script src="js/modules/shopfloor.js"></script>
+  <script src="js/modules/technical.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

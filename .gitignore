@@ -1,0 +1,17 @@
+# tooling / agent state (not part of the site)
+.claude-flow/
+.agents/
+.claude/
+.swarm/
+
+# secrets and local config
+.env
+.env.*
+*.pem
+*.key
+secrets.env
+
+# OS / editor / deps
+.DS_Store
+node_modules/
+*.log
